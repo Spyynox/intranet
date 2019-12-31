@@ -1,8 +1,4 @@
 easy_admin:
-    user:
-        display_name: true
-        display_avatar: false
-        name_property_path: 'fullname'
 
     entities:
         User:
@@ -28,8 +24,4 @@ easy_admin:
                     - 'fullname'
                     - 'email'
                     - { property: 'password', type: 'password', algorithm: 'auto' }
-                    # - { property: 'image', type: 'image', base_path: '/images/products' }   
                     - { property: 'imageFile', type: 'vich_image' }
-
-            
-    #    - App\Entity\User
