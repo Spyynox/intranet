@@ -1,0 +1,25 @@
+easy_admin:
+
+    entities:
+        Matter:
+            class: App\Entity\Matter
+            controller: App\Controller\AdminController
+            list:
+                fields:
+                    - { property: 'name', type: 'string', label: 'Nom de la matière' }
+                    - { property: 'user', type: 'string', label: 'Professeur assigné' }
+                    - { property: 'student', type: 'string', label: 'Elève inscrit' }
+                    - 'notes'
+                actions:
+                - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+
+            show:
+                fields:
+                    - 'notes'
+
+            form:
+                fields:
+                    - 'name'
+                    - 'user'
+                    - 'notes'

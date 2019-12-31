@@ -1,7 +1,12 @@
 easy_admin:
+    user:
+        display_name: true
+        display_avatar: false
+        name_property_path: 'fullname'
     design:
         menu:
             
             - {entity: 'User', icon: 'user', label: 'Utilisateurs'}
-            # - {entity: 'Category', icon: 'newspaper-o', label: 'Categories'}
-            # - {entity: 'Tag', icon: 'tags', label: 'Tags'}
+            - {entity: 'Matter', icon: 'newspaper-o', label: 'Matière'}
+            - {entity: 'Matter', icon: 'user', label: 'eleve'}
+            # - {entity: 'Note', icon: 'tags', label: 'Note'}

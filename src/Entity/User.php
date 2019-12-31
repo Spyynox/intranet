@@ -60,12 +60,6 @@ class User implements UserInterface
     private $imageFile;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @var \DateTime
-     */
-    private $updatedAt;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Matter", mappedBy="user")
      */
     private $matters;
@@ -90,14 +84,6 @@ class User implements UserInterface
     public function setImageFile(File $image = null)
     {
         $this->imageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
     }
 
     public function getImageFile()
@@ -203,18 +189,6 @@ class User implements UserInterface
     public function setImage(?string $image): self
     {
         $this->image = $image;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
