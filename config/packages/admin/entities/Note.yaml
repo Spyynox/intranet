@@ -1,0 +1,21 @@
+easy_admin:
+    entities:
+        Note:
+            class: App\Entity\Note
+            list:
+                fields:
+                    - {property: 'matter'}
+                    - {property: 'user'}
+                    - {property: 'note'}
+                    - {property: 'message'}
+
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+
+            form:
+                fields:
+                    - {property: 'note'}
+                    - {property: 'message'}
+                    - {property: 'user'}
+                    - {property: 'matter'}

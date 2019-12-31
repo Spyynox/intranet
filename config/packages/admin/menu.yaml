@@ -2,6 +2,6 @@ easy_admin:
     design:
         menu:
             
-            - {entity: 'User', icon: 'user', label: 'Utilisateurs'}
-            # - {entity: 'Category', icon: 'newspaper-o', label: 'Categories'}
-            # - {entity: 'Tag', icon: 'tags', label: 'Tags'}
+            - {entity: 'User', icon: 'id-card-o', label: 'Utilisateurs'}
+            - {entity: 'Note', icon: 'pencil', label: 'Note des élèves'}
+            # - {entity: 'Matter', icon: 'newspaper-o', label: 'Matières'}
