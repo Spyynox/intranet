@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 // use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -62,6 +64,22 @@ class User implements UserInterface
      * @var \DateTime
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Matter", mappedBy="user")
+     */
+    private $matters;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Matter", mappedBy="student")
+     */
+    private $mattersStudents;
+
+    public function __construct()
+    {
+        $this->matters = new ArrayCollection();
+        $this->mattersStudents = new ArrayCollection();
+    }
 
     public function setImageFile(File $image = null)
     {
@@ -191,6 +209,65 @@ class User implements UserInterface
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Matter[]
+     */
+    public function getMatters(): Collection
+    {
+        return $this->matters;
+    }
+
+    public function addMatter(Matter $matter): self
+    {
+        if (!$this->matters->contains($matter)) {
+            $this->matters[] = $matter;
+            $matter->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatter(Matter $matter): self
+    {
+        if ($this->matters->contains($matter)) {
+            $this->matters->removeElement($matter);
+            // set the owning side to null (unless already changed)
+            if ($matter->getUser() === $this) {
+                $matter->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Matter[]
+     */
+    public function getMattersStudents(): Collection
+    {
+        return $this->mattersStudents;
+    }
+
+    public function addMattersStudent(Matter $mattersStudent): self
+    {
+        if (!$this->mattersStudents->contains($mattersStudent)) {
+            $this->mattersStudents[] = $mattersStudent;
+            $mattersStudent->addStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMattersStudent(Matter $mattersStudent): self
+    {
+        if ($this->mattersStudents->contains($mattersStudent)) {
+            $this->mattersStudents->removeElement($mattersStudent);
+            $mattersStudent->removeStudent($this);
+        }
 
         return $this;
     }
