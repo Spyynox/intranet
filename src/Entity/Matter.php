@@ -34,9 +34,15 @@ class Matter
      */
     private $student;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="matter")
+     */
+    private $notes;
+
     public function __construct()
     {
         $this->student = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,6 +95,37 @@ class Matter
     {
         if ($this->student->contains($student)) {
             $this->student->removeElement($student);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setMatter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->contains($note)) {
+            $this->notes->removeElement($note);
+            // set the owning side to null (unless already changed)
+            if ($note->getMatter() === $this) {
+                $note->setMatter(null);
+            }
         }
 
         return $this;

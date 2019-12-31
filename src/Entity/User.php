@@ -75,10 +75,16 @@ class User implements UserInterface
      */
     private $mattersStudents;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="user")
+     */
+    private $notes;
+
     public function __construct()
     {
         $this->matters = new ArrayCollection();
         $this->mattersStudents = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function setImageFile(File $image = null)
@@ -267,6 +273,37 @@ class User implements UserInterface
         if ($this->mattersStudents->contains($mattersStudent)) {
             $this->mattersStudents->removeElement($mattersStudent);
             $mattersStudent->removeStudent($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->contains($note)) {
+            $this->notes->removeElement($note);
+            // set the owning side to null (unless already changed)
+            if ($note->getUser() === $this) {
+                $note->setUser(null);
+            }
         }
 
         return $this;
