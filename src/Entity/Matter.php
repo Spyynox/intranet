@@ -34,9 +34,15 @@ class Matter
      */
     private $notes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="studentsMatters")
+     */
+    private $student;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
+        $this->student = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,5 +108,31 @@ class Matter
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getStudent(): Collection
+    {
+        return $this->student;
+    }
+
+    public function addStudent(User $student): self
+    {
+        if (!$this->student->contains($student)) {
+            $this->student[] = $student;
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(User $student): self
+    {
+        if ($this->student->contains($student)) {
+            $this->student->removeElement($student);
+        }
+
+        return $this;
     }
 }

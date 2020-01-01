@@ -69,10 +69,16 @@ class User implements UserInterface
      */
     private $notes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Matter", mappedBy="student")
+     */
+    private $studentsMatters;
+
     public function __construct()
     {
         $this->matters = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->studentsMatters = new ArrayCollection();
     }
 
     public function setImageFile(File $image = null)
@@ -252,5 +258,33 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->fullname;
+    }
+
+    /**
+     * @return Collection|Matter[]
+     */
+    public function getStudentsMatters(): Collection
+    {
+        return $this->studentsMatters;
+    }
+
+    public function addStudentsMatter(Matter $studentsMatter): self
+    {
+        if (!$this->studentsMatters->contains($studentsMatter)) {
+            $this->studentsMatters[] = $studentsMatter;
+            $studentsMatter->addStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentsMatter(Matter $studentsMatter): self
+    {
+        if ($this->studentsMatters->contains($studentsMatter)) {
+            $this->studentsMatters->removeElement($studentsMatter);
+            $studentsMatter->removeStudent($this);
+        }
+
+        return $this;
     }
 }
