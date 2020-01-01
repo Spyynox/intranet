@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Matter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MatterType extends AbstractType
@@ -14,7 +16,11 @@ class MatterType extends AbstractType
         $builder
             ->add('name')
             ->add('user')
-            ->add('student')
+            ->add('student', EntityType::class, [
+                    'class' => User::class,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'choice_label' => 'fullname' ])
         ;
     }
 

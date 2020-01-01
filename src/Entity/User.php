@@ -65,11 +65,6 @@ class User implements UserInterface
     private $matters;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Matter", mappedBy="student")
-     */
-    private $mattersStudents;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="user")
      */
     private $notes;
@@ -77,7 +72,6 @@ class User implements UserInterface
     public function __construct()
     {
         $this->matters = new ArrayCollection();
-        $this->mattersStudents = new ArrayCollection();
         $this->notes = new ArrayCollection();
     }
 
@@ -219,34 +213,6 @@ class User implements UserInterface
             if ($matter->getUser() === $this) {
                 $matter->setUser(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Matter[]
-     */
-    public function getMattersStudents(): Collection
-    {
-        return $this->mattersStudents;
-    }
-
-    public function addMattersStudent(Matter $mattersStudent): self
-    {
-        if (!$this->mattersStudents->contains($mattersStudent)) {
-            $this->mattersStudents[] = $mattersStudent;
-            $mattersStudent->addStudent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMattersStudent(Matter $mattersStudent): self
-    {
-        if ($this->mattersStudents->contains($mattersStudent)) {
-            $this->mattersStudents->removeElement($mattersStudent);
-            $mattersStudent->removeStudent($this);
         }
 
         return $this;

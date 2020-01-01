@@ -42,7 +42,14 @@
         </div>
         <div>
             <h2>Liste des matières inscrit</h2>
-            <div></div>
+            {% for matter in matters %}
+                <pre>
+                    {{ dump(matter) }}
+                </pre>
+                {# {% if matter.user.id == matter.id  %} #}
+                    <div>{{ matter.user }}</div>
+                {# {% endif %} #}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

@@ -35,4 +35,4 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/prof, roles: ROLE_PROF }
-        - { path: ^/student, roles: ROLE_STUDENT }
+        - { path: ^/etudiant, roles: ROLE_STUDENT }

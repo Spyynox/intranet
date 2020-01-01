@@ -30,18 +30,12 @@ class Matter
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="mattersStudents")
-     */
-    private $student;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="matter")
      */
     private $notes;
 
     public function __construct()
     {
-        $this->student = new ArrayCollection();
         $this->notes = new ArrayCollection();
     }
 
@@ -70,32 +64,6 @@ class Matter
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getStudent(): Collection
-    {
-        return $this->student;
-    }
-
-    public function addStudent(User $student): self
-    {
-        if (!$this->student->contains($student)) {
-            $this->student[] = $student;
-        }
-
-        return $this;
-    }
-
-    public function removeStudent(User $student): self
-    {
-        if ($this->student->contains($student)) {
-            $this->student->removeElement($student);
-        }
 
         return $this;
     }
