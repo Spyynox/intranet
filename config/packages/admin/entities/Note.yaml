@@ -4,10 +4,10 @@ easy_admin:
             class: App\Entity\Note
             list:
                 fields:
-                    - {property: 'matter'}
-                    - {property: 'user'}
-                    - {property: 'note'}
-                    - {property: 'message'}
+                    - {property: 'matter', label: 'Matières'}
+                    - {property: 'user', label: 'Utilisateurs'}
+                    - {property: 'note', label: 'Notes'}
+                    - {property: 'message', label: 'Messages'}
 
                 actions:
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
@@ -15,7 +15,7 @@ easy_admin:
 
             form:
                 fields:
-                    - {property: 'note'}
-                    - {property: 'message'}
-                    - {property: 'user'}
-                    - {property: 'matter'}
+                    - {property: 'matter', label: 'Matière'}
+                    - {property: 'user', label: "Etudiant assigné"}
+                    - {property: 'note', label: 'Note'}
+                    - {property: 'message', label: 'Remarque'}

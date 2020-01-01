@@ -3,5 +3,9 @@ easy_admin:
         menu:
             
             - {entity: 'User', icon: 'id-card-o', label: 'Utilisateurs'}
-            - {entity: 'Note', icon: 'pencil', label: 'Note des élèves'}
-            # - {entity: 'Matter', icon: 'newspaper-o', label: 'Matières'}
+
+            - label: 'Cours'
+              icon: 'newspaper-o'
+              children:
+                    - {entity: 'Note', icon: 'pencil', label: 'Note des élèves'}
+                    - {entity: 'Matter', icon: 'newspaper-o', label: 'Matières'}

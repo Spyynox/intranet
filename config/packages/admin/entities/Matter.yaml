@@ -1,0 +1,17 @@
+easy_admin:
+    entities:
+        Matter:
+            class: App\Entity\Matter
+            list:
+                fields:
+                    - {property: 'name', label: 'Matières'}
+                    - {property: 'user', label: 'Profs assignés'}
+
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+
+            form:
+                fields:
+                    - {property: 'name'}
+                    - {property: 'user'}

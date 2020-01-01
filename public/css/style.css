@@ -1,0 +1,8 @@
+body {
+    margin: 0;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-around;
+}
