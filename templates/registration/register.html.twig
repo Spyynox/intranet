@@ -3,14 +3,20 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    {% if not app.user %}
+        <h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.fullname) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.fullname) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword) }}
+            {{ form_row(registrationForm.agreeTerms) }}
 
-        <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+            <button class="btn">Register</button>
+        {{ form_end(registrationForm) }}
+    {% endif %}
+
+    {% if app.user %}
+        <h1>Tu es déjà connectez !</h1>
+    {% endif %}
 {% endblock %}
