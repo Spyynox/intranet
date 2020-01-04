@@ -40,10 +40,16 @@ class Matter
      */
     private $student;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\StudentUser", mappedBy="studentMatter")
+     */
+    private $studentUsers;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
         $this->student = new ArrayCollection();
+        $this->studentUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,6 +146,37 @@ class Matter
     {
         if ($this->student->contains($student)) {
             $this->student->removeElement($student);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StudentUser[]
+     */
+    public function getStudentUsers(): Collection
+    {
+        return $this->studentUsers;
+    }
+
+    public function addStudentUser(StudentUser $studentUser): self
+    {
+        if (!$this->studentUsers->contains($studentUser)) {
+            $this->studentUsers[] = $studentUser;
+            $studentUser->setStudentMatter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentUser(StudentUser $studentUser): self
+    {
+        if ($this->studentUsers->contains($studentUser)) {
+            $this->studentUsers->removeElement($studentUser);
+            // set the owning side to null (unless already changed)
+            if ($studentUser->getStudentMatter() === $this) {
+                $studentUser->setStudentMatter(null);
+            }
         }
 
         return $this;

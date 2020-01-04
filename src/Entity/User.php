@@ -74,11 +74,17 @@ class User implements UserInterface
      */
     private $studentsMatters;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\StudentUser", mappedBy="user")
+     */
+    private $studentUsers;
+
     public function __construct()
     {
         $this->matters = new ArrayCollection();
         $this->notes = new ArrayCollection();
         $this->studentsMatters = new ArrayCollection();
+        $this->studentUsers = new ArrayCollection();
     }
 
     public function setImageFile(File $image = null)
@@ -286,6 +292,37 @@ class User implements UserInterface
             $studentsMatter->removeStudent($this);
             if ($curentticket->getCurrentuser() === $this) {
                 $curentticket->setCurrentuser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StudentUser[]
+     */
+    public function getStudentUsers(): Collection
+    {
+        return $this->studentUsers;
+    }
+
+    public function addStudentUser(StudentUser $studentUser): self
+    {
+        if (!$this->studentUsers->contains($studentUser)) {
+            $this->studentUsers[] = $studentUser;
+            $studentUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentUser(StudentUser $studentUser): self
+    {
+        if ($this->studentUsers->contains($studentUser)) {
+            $this->studentUsers->removeElement($studentUser);
+            // set the owning side to null (unless already changed)
+            if ($studentUser->getUser() === $this) {
+                $studentUser->setUser(null);
             }
         }
 
