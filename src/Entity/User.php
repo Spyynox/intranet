@@ -216,8 +216,8 @@ class User implements UserInterface
         if ($this->matters->contains($matter)) {
             $this->matters->removeElement($matter);
             // set the owning side to null (unless already changed)
-            if ($matter->getUser() === $this) {
-                $matter->setUser(null);
+            if ($matter->getStudent() === $this) {
+                $matter->setStudent(null);
             }
         }
 
@@ -258,6 +258,7 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->fullname;
+        return $this->getStudent();
     }
 
     /**
@@ -283,6 +284,9 @@ class User implements UserInterface
         if ($this->studentsMatters->contains($studentsMatter)) {
             $this->studentsMatters->removeElement($studentsMatter);
             $studentsMatter->removeStudent($this);
+            if ($curentticket->getCurrentuser() === $this) {
+                $curentticket->setCurrentuser(null);
+            }
         }
 
         return $this;

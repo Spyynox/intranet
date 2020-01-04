@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Matter;
 use App\Form\MatterType;
+use App\Repository\UserRepository;
 use App\Repository\MatterRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/prof")
@@ -18,7 +19,7 @@ class MatterController extends AbstractController
     /**
      * @Route("/", name="matter_index", methods={"GET"})
      */
-    public function index(MatterRepository $matterRepository): Response
+    public function index(MatterRepository $matterRepository, UserRepository $userRepository): Response
     {
         return $this->render('matter/index.html.twig', [
             'matters' => $matterRepository->findAll(),

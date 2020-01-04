@@ -36,6 +36,7 @@ class Matter
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="studentsMatters")
+     * @ORM\JoinTable(name="eleves")
      */
     private $student;
 
@@ -108,6 +109,7 @@ class Matter
     public function __toString()
     {
         return $this->name;
+        return $this->student;
     }
 
     /**
@@ -116,6 +118,13 @@ class Matter
     public function getStudent(): Collection
     {
         return $this->student;
+    }
+
+    public function setStudent(?User $student): self
+    {
+        $this->student = $student;
+
+        return $this;
     }
 
     public function addStudent(User $student): self
