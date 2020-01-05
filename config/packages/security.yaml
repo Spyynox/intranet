@@ -35,7 +35,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/prof, roles: ROLE_PROF }
-        # - { path: ^/student, roles: ROLE_STUDENT }
+        - { path: ^/student/user/, roles: ROLE_STUDENT }
 
     # acl:
     #     connection: default

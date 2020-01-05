@@ -5,13 +5,15 @@ namespace App\Controller;
 use App\Entity\StudentUser;
 use App\Form\StudentUserType;
 use App\Repository\StudentUserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/student/user")
+ * @IsGranted("ROLE_STUDENT", statusCode=404, message="issou")
  */
 class StudentUserController extends AbstractController
 {

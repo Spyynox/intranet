@@ -45,12 +45,35 @@
             {% endfor %}
         </div>
         <div>
-            <h2>Liste d'élève(s) inscrit(s)</h2>
-            {% for matter in matters %}
-                {# {% if matter.user.id == matter.id  %} #}
-                    <div>{{ matter.student|join(', ') }}</div>
-                {# {% endif %} #}
+            <h2>Liste de tous les élèves inscrits</h2>
+            {% for studentUser in studentUsers %}
+                {% if studentUser.studentMatter.user.id == app.user.id %}
+                    <div>{{ studentUser.user.fullname }}</div>
+                {% endif %}
+                
             {% endfor %}
         </div>
     </div>
+
+    <br>
+    <br>
+    <br>
+
+    {% for matter in matters %}
+        {% if matter.user.id == app.user.id %}
+                <div style="text-align: center">Cours de {{ matter.name }} : </div><br>
+        {% endif %}
+    {% for studentUser in studentUsers %}
+        {% if matter.user.fullname == app.user.fullname %}
+        {% if studentUser.studentMatter.id == matter.id %}
+        
+        
+            <div style="text-align: center">
+                <div>{{studentUser.user.fullname}} </div>
+            </div>
+
+        {% endif %}
+        {% endif %}
+    {% endfor %}<br>
+    {% endfor %}
 {% endblock %}
