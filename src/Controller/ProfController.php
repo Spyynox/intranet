@@ -14,14 +14,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * @Route("/prof")
  */
-class MatterController extends AbstractController
+class ProfController extends AbstractController
 {
     /**
      * @Route("/", name="matter_index", methods={"GET"})
      */
     public function index(MatterRepository $matterRepository, UserRepository $userRepository): Response
     {
-        return $this->render('matter/index.html.twig', [
+        return $this->render('profMatter/index.html.twig', [
             'matters' => $matterRepository->findAll(),
         ]);
     }
@@ -43,7 +43,7 @@ class MatterController extends AbstractController
             return $this->redirectToRoute('matter_index');
         }
 
-        return $this->render('matter/new.html.twig', [
+        return $this->render('profMatter/new.html.twig', [
             'matter' => $matter,
             'form' => $form->createView(),
         ]);
@@ -54,7 +54,7 @@ class MatterController extends AbstractController
      */
     public function show(Matter $matter): Response
     {
-        return $this->render('matter/show.html.twig', [
+        return $this->render('profMatter/show.html.twig', [
             'matter' => $matter,
         ]);
     }
@@ -73,7 +73,7 @@ class MatterController extends AbstractController
             return $this->redirectToRoute('matter_index');
         }
 
-        return $this->render('matter/edit.html.twig', [
+        return $this->render('profMatter/edit.html.twig', [
             'matter' => $matter,
             'form' => $form->createView(),
         ]);

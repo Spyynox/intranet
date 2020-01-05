@@ -35,4 +35,13 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/prof, roles: ROLE_PROF }
-        - { path: ^/student, roles: ROLE_STUDENT }
+        # - { path: ^/student, roles: ROLE_STUDENT }
+
+    # acl:
+    #     connection: default
+    # # ...
+    # role_hierarchy:
+    #     ROLE_SILVER: [ROLE_BRONZE]
+    #     ROLE_GOLD: [ROLE_SILVER]
+    #     ROLE_PLATINUM: [ROLE_GOLD]
+    #     ROLE_ADMIN: [ROLE_PLATINUM, ROLE_ALLOWED_TO_SWITCH]

@@ -35,13 +35,17 @@
 
     <div class="flex">
         <div>
-            <h2>Liste des matières</h2>
+            <h2>Liste de vos matières assignés</h2>
             {% for matter in matters %}
-                <div>{{ matter.name }}</div>
+
+                {% if matter.user.id == app.user.id %}
+                    <div>{{ matter.name }}</div>
+                {% endif %}
+                
             {% endfor %}
         </div>
         <div>
-            <h2>Liste des matières inscrit</h2>
+            <h2>Liste d'élève(s) inscrit(s)</h2>
             {% for matter in matters %}
                 {# {% if matter.user.id == matter.id  %} #}
                     <div>{{ matter.student|join(', ') }}</div>

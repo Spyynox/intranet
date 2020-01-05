@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Note;
 use App\Form\NoteType;
 use App\Repository\NoteRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("student/note")
@@ -17,10 +18,12 @@ class NoteStudentController extends AbstractController
 {
     /**
      * @Route("/", name="note_index", methods={"GET"})
+     * @IsGranted("ROLE_STUDENT")
      */
     public function index(NoteRepository $noteRepository): Response
     {
-        return $this->render('note/index.html.twig', [
+        // $this->denyAccessUnlessGranted(['ROLE_PROF', 'ROLE_ADMIN'], null, 'You cannot edit this item.'); 
+        return $this->render('noteStudent/index.html.twig', [
             'notes' => $noteRepository->findAll(),
         ]);
     }
@@ -42,7 +45,7 @@ class NoteStudentController extends AbstractController
             return $this->redirectToRoute('note_index');
         }
 
-        return $this->render('note/new.html.twig', [
+        return $this->render('noteStudent/new.html.twig', [
             'note' => $note,
             'form' => $form->createView(),
         ]);
@@ -53,7 +56,7 @@ class NoteStudentController extends AbstractController
      */
     public function show(Note $note): Response
     {
-        return $this->render('note/show.html.twig', [
+        return $this->render('noteStudent/show.html.twig', [
             'note' => $note,
         ]);
     }
@@ -72,7 +75,7 @@ class NoteStudentController extends AbstractController
             return $this->redirectToRoute('note_index');
         }
 
-        return $this->render('note/edit.html.twig', [
+        return $this->render('noteStudent/edit.html.twig', [
             'note' => $note,
             'form' => $form->createView(),
         ]);
