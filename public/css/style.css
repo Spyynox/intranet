@@ -6,3 +6,21 @@ body {
     display: flex;
     justify-content: space-around;
 }
+
+.login_app {
+    position: absolute;
+    right: 12%;
+    top: 20%;
+}
+
+.logout_app {
+    position: absolute;
+    right: 5%;
+    top: 20%;
+}
+
+.registration_app {
+    position: absolute;
+    right: 5%;
+    top: 20%;
+}

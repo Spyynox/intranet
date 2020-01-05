@@ -18,10 +18,10 @@
                 <ul class="navbar-nav mr-auto">
                     {% if not app.user %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                            <a class="nav-link login_app" href="{{ path('app_login') }}">Connexion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                            <a class="nav-link registration_app" href="{{ path('app_register') }}">Inscription</a>
                         </li>
                     {% endif %}
 
@@ -39,7 +39,7 @@
                         {% endif %}
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_logout') }}">Deconnexion</a>
+                            <a class="nav-link logout_app" href="{{ path('app_logout') }}">Deconnexion</a>
                         </li>
 
                     {% endif %}
