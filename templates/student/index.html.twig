@@ -42,18 +42,15 @@
         <div>
             <h2>Liste des matières inscrit</h2>
             {% for user in users %}
-            {% for matter in matters %}
-                <pre>
-                    {{ dump(matter.student) }}
-                </pre>
-                {# <pre>
-                    {{ dump(matter.user) }}
-                </pre> #}
-                {% if user.studentsMatters.owner.id == app.user.id %}
-                    <div>{{ matter.name }}</div>
-                {% endif %}
+                {% for matter in user.matters %}
+                    {% for student in matter.student %}
+                        {% if student.fullname == app.user.fullname %}
+                            <div>{{ matter.name }}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
             {% endfor %}
-            {% endfor %}
+
         </div>
     </div>
     <div>hhha</div>
