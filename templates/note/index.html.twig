@@ -35,11 +35,18 @@
 
     <a href="{{ path('note_new') }}">Create new</a>
 
+    {% set somme = 0 %}
+    {% set count = 0 %}
     {% for note in notes %}
         {% if note.user.id == app.user.id %}
-            <div>Note du cours {{  note.matter.name }}: {{ note.note }}</div>
-            <div>message: {{ note.message }}</div><br><br>
+            <div>Note du cours de {{  note.matter.name }}: {{ note.note }}</div>
+            <div>message: {{ note.message }}</div>
+            <div>Moyenne: {% set somme = somme + note.note %}</div>
+            {% set count = count + 1 %} <br><br>
         {% endif %}
         
     {% endfor %}
+    {% if somme > 0 %}
+        <div>Moyenne general: {{somme / count}} / 20</div>
+    {% endif %}
 {% endblock %}
