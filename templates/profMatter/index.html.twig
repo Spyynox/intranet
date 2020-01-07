@@ -3,35 +3,6 @@
 {% block title %}Matter index{% endblock %}
 
 {% block body %}
-    <h1>Matter index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for matter in matters %}
-            <tr>
-                <td>{{ matter.id }}</td>
-                <td>{{ matter.name }}</td>
-                <td>
-                    <a href="{{ path('matter_show', {'id': matter.id}) }}">show</a>
-                    <a href="{{ path('matter_edit', {'id': matter.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('matter_new') }}">Create new</a>
 
     <div class="flex">
         <div>
@@ -48,10 +19,11 @@
             <h2>Liste de tous les élèves inscrits</h2>
             {% for studentUser in studentUsers %}
                 {% if studentUser.studentMatter.user.id == app.user.id %}
-                    <div>{{ studentUser.user.fullname }}</div>
+                    , {{ studentUser.user.studentsMatters.owner.fullname }}
                 {% endif %}
                 
             {% endfor %}
+
         </div>
     </div>
 
@@ -59,14 +31,16 @@
     <br>
     <br>
 
+    
+        <h2 class="center">Liste des élèves inscrit à vos matières</h2>
     {% for matter in matters %}
         {% if matter.user.id == app.user.id %}
                 <div style="text-align: center">Cours de {{ matter.name }} : </div><br>
         {% endif %}
+        
     {% for studentUser in studentUsers %}
         {% if matter.user.fullname == app.user.fullname %}
         {% if studentUser.studentMatter.id == matter.id %}
-        
         
             <div style="text-align: center">
                 <div>{{studentUser.user.fullname}} </div>
