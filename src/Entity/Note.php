@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -89,5 +91,15 @@ class Note
         $this->matter = $matter;
 
         return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('note', new Assert\Range([
+            'min' => 0,
+            'max' => 20,
+            'minMessage' => 'You must be at least {{ limit }}cm tall to enter',
+            'maxMessage' => 'You cannot be taller than {{ limit }}cm to enter',
+        ]));
     }
 }

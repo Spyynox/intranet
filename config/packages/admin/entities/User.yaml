@@ -7,7 +7,7 @@ easy_admin:
     entities:
         User:
             class: App\Entity\User
-            controller: App\Controller\AdminController
+            controller: App\Controller\EasyyAdminController
             list:
                 fields:
                     - { property: 'fullname', type: 'string', label: 'Nom complet' }

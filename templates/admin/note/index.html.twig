@@ -36,7 +36,7 @@
             </tbody>
         </table>
 
-        <a href="{{ path('note_new') }}">Create new</a>
+        <a href="{{ path('noteProf_new') }}">Create new</a>
 
         {% set somme = 0 %}
         {% set count = 0 %}
@@ -44,7 +44,7 @@
             {% if note.user.id == app.user.id %}
                 <div>Note du cours de {{  note.matter.name }}: {{ note.note }}</div>
                 <div>message: {{ note.message }}</div>
-                {% set somme = somme + note.note %}
+                <div>Moyenne: {% set somme = somme + note.note %}</div>
                 {% set count = count + 1 %} <br><br>
             {% endif %}
             

@@ -12,6 +12,7 @@ class HomeController extends AbstractController
      */
     public function index()
     {
+        // $this->denyAccessUnlessGranted(['ROLE_STUDENT', 'ROLE_PROF', 'ROLE_ADMIN'], null, 'You cannot edit this item.');
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);

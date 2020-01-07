@@ -16,11 +16,6 @@ class MatterType extends AbstractType
         $builder
             ->add('name')
             ->add('user')
-            ->add('student', EntityType::class, [
-                    'class' => User::class,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'choice_label' => 'fullname' ])
         ;
     }
 

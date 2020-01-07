@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Note;
 use App\Entity\Matter;
+use App\Form\NoteType;
 use App\Form\MatterType;
+use App\Repository\NoteRepository;
 use App\Repository\UserRepository;
 use App\Repository\MatterRepository;
 use App\Repository\StudentUserRepository;
@@ -12,15 +15,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 /**
  * @Route("/prof")
  */
-class ProfController extends AbstractController
+class ProfsController extends AbstractController
 {
     /**
-     * @Route("/", name="matter_index", methods={"GET"})
+     * @Route("/", name="app_profs_index", methods={"GET"})
      */
-    public function index(MatterRepository $matterRepository, UserRepository $userRepository, StudentUserRepository $studentUserRepository): Response
+    public function index(MatterRepository $matterRepository, StudentUserRepository $studentUserRepository): Response
     {
         return $this->render('profMatter/index.html.twig', [
             'matters' => $matterRepository->findAll(),
@@ -42,7 +46,7 @@ class ProfController extends AbstractController
             $entityManager->persist($matter);
             $entityManager->flush();
 
-            return $this->redirectToRoute('matter_index');
+            return $this->redirectToRoute('app_profs_index');
         }
 
         return $this->render('profMatter/new.html.twig', [
@@ -52,7 +56,7 @@ class ProfController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="matter_show", methods={"GET"})
+     * @Route("/{id}", name="matter_show", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function show(Matter $matter): Response
     {
@@ -93,5 +97,38 @@ class ProfController extends AbstractController
         }
 
         return $this->redirectToRoute('matter_index');
+    }
+
+    /**
+     * @Route("/note", name="noteProfIndex", methods={"GET"})
+     */
+    public function indexNote(NoteRepository $noteRepository): Response
+    {
+        return $this->render('profMatter/note/index.html.twig', [
+            'notes' => $noteRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/note/new", name="noteProf_new", methods={"GET","POST"})
+     */
+    public function newNote(Request $request): Response
+    {
+        $note = new Note();
+        $form = $this->createForm(NoteType::class, $note);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($note);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('noteProfIndex');
+        }
+
+        return $this->render('profMatter/note/new.html.twig', [
+            'note' => $note,
+            'form' => $form->createView(),
+        ]);
     }
 }

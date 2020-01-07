@@ -5,15 +5,16 @@
 {% block body %}
     {% if not app.user %}
         <h1>Register</h1>
+        <div class="mb-0">
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.fullname) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword) }}
+                {{ form_row(registrationForm.agreeTerms) }}
 
-        {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.fullname) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.plainPassword) }}
-            {{ form_row(registrationForm.agreeTerms) }}
-
-            <button class="btn">Register</button>
-        {{ form_end(registrationForm) }}
+                <button class="btn btn-success">Register</button>
+            {{ form_end(registrationForm) }}
+        </div>
     {% endif %}
 
     {% if app.user %}

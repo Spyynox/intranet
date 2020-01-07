@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
 
-class AdminController extends EasyAdminController
+class EasyyAdminController extends EasyAdminController
 {
     protected function persistUserEntity($user)
     {

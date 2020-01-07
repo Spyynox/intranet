@@ -9,7 +9,14 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{ path('home') }}">Home</a>
+            {% if is_granted('ROLE_PROF') or is_granted('ROLE_STUDENT') %}
+                <a class="navbar-brand" href="{{ path('home') }}">Home</a>
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="navbar-brand" href="admin">EasyAdmin</a>
+            {% endif %}
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -30,10 +37,32 @@
                         {% if is_granted('ROLE_PROF') %}
                         
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('matter_index') }}">Mes Matières</a>
+                                <a class="nav-link" href="{{ path('app_profs_index') }}">Mes Matières</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('matter_index') }}">Notes</a>
+                                <a class="nav-link" href="{{ path('noteProfIndex') }}">Notes</a>
+                            </li>
+
+                        {% endif %}
+
+                        {% if is_granted('ROLE_STUDENT') %}
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('student_index') }}">Mes Matières</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('note_index') }}">Notes</a>
+                            </li>
+
+                        {% endif %}
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('admin_index') }}">Matières</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('adminProf_index') }}">Profs</a>
                             </li>
 
                         {% endif %}

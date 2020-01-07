@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matter index{% endblock %}
+
+{% block body %}
+    <h1>Matter index</h1>
+
+    <a href="{{ path('matter_new') }}" class="btn new">Create new</a>
+
+        {% set count = 0 %}
+        {% for matter in matters %}
+            {% set count = count + 1 %}
+        {% endfor %}
+
+    <h2 class="center">Liste de toute les matières ({{ count }} matiere(s))</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="center">Matières</th>
+			    <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for matter in matters %}
+            <tr>
+                <td class="center">{{ matter.name }}</td>
+				<td>
+					<a href="{{ path('admin_edit', {'id': matter.id}) }}">edit</a>
+				</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Il n'y a pas de matière</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+</table>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Matière</th>
+			<th>Professeur assigné</th>
+			<th>actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for matter in matters %}
+			<tr>
+				<td>{{ matter.name }}</td>
+				<td>{{ matter.user.fullname }}</td>
+				<td>
+					<a href="{{ path('matter_show', {'id': matter.id}) }}">show</a>
+					<a href="{{ path('matter_edit', {'id': matter.id}) }}">edit</a>
+				</td>
+			</tr>
+		{% else %}
+			<tr>
+				<td colspan="3">Il n'y a pas de prof assigné</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+
+    <div class="flex">
+        <div>
+            <h2>Liste de vos matières assignés</h2>
+            {% for matter in matters %}
+
+                {% if matter.user.id == app.user.id %}
+                    <div>{{ matter.name }}</div>
+                {% endif %}
+                
+            {% endfor %}
+        </div>
+        <div>
+            <h2>Liste de tous les élèves inscrits</h2>
+            {% for studentUser in studentUsers %}
+                {% if studentUser.studentMatter.user.id == app.user.id %}
+                    <div>{{ studentUser.user.fullname }}</div>
+                {% endif %}
+                
+            {% endfor %}
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    {% for matter in matters %}
+        {% if matter.user.id == app.user.id %}
+                <div style="text-align: center">Cours de {{ matter.name }} : </div><br>
+        {% endif %}
+    {% for studentUser in studentUsers %}
+        {% if matter.user.fullname == app.user.fullname %}
+        {% if studentUser.studentMatter.id == matter.id %}
+        
+        
+            <div style="text-align: center">
+                <div>{{studentUser.user.fullname}} </div>
+            </div>
+
+        {% endif %}
+        {% endif %}
+    {% endfor %}<br>
+    {% endfor %}
+{% endblock %}
