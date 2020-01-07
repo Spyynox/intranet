@@ -28,31 +28,6 @@ class StudentUserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="student_user_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $studentUser = new StudentUser();
-        $form = $this->createForm(StudentUserType::class, $studentUser);
-        $form->handleRequest($request);
-        $user = $this->getUser();
-        $studentUser->setUser($user);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($studentUser);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('student_index');
-        }
-
-        return $this->render('student_user/new.html.twig', [
-            'student_user' => $studentUser,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="student_user_show", methods={"GET"})
      */
     public function show(StudentUser $studentUser): Response

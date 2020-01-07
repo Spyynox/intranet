@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Matter{% endblock %}
+{% block title %}New StudentUser{% endblock %}
 
 {% block body %}
-    <h1>Create new Matter</h1>
 
-    {{ include('matter/_form.html.twig') }}
+    <br><br>
+    <div class="margin-left_acceuil">
+        {{ include('student/_form.html.twig') }}<br>
 
-    <a href="{{ path('student_index') }}">back to list</a>
+        <a class="btn btn-danger" href="{{ path('student_index') }}">Annuler</a>
+    </div>
 {% endblock %}

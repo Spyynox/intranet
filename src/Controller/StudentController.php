@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Matter;
 use App\Form\StudentType;
+use App\Entity\StudentUser;
+use App\Form\StudentUserType;
 use App\Repository\UserRepository;
 use App\Repository\MatterRepository;
 use App\Repository\StudentUserRepository;
@@ -30,24 +32,26 @@ class StudentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="student_edit", methods={"GET","POST"})
+     * @Route("/new", name="student_user_new", methods={"GET","POST"})
      */
-    public function edit(Request $request, Matter $matter): Response
+    public function new(Request $request): Response
     {
-        $form = $this->createForm(StudentType::class, $matter);
+        $studentUser = new StudentUser();
+        $form = $this->createForm(StudentUserType::class, $studentUser);
         $form->handleRequest($request);
         $user = $this->getUser();
+        $studentUser->setUser($user);
 
-        if ($form->isSubmitted() && $form->isValid()) {    
-            // $matter->setStudent($this->getUser());
-            // $this->getDoctrine()->getManager()->persist($matter);
-            // $this->getDoctrine()->getManager()->flush();
-            $this->getDoctrine()->getManager()->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($studentUser);
+            $entityManager->flush();
+
             return $this->redirectToRoute('student_index');
         }
 
-        return $this->render('student/edit.html.twig', [
-            'matter' => $matter,
+        return $this->render('student/new.html.twig', [
+            'student_user' => $studentUser,
             'form' => $form->createView(),
         ]);
     }

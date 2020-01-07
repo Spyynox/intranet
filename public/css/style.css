@@ -46,8 +46,15 @@ body {
     background-color: blue !important;
     color: white !important;
     margin-top: 2%;
+    margin-left: 45%;
+    text-align : center;
+    display : block;
 }
 
 .bold {
     font-weight: bold;
+}
+
+.margin-left_acceuil {
+    margin-left: 3%;
 }
