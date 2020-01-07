@@ -3,27 +3,9 @@
 {% block title %}Note index{% endblock %}
 
 {% block body %}
-    {# {% if is_granted('ROLE_PROF') %} #}
 
+    <h1 class="center">Note</h1>
 
-        <h1 class="center">Note</h1>
+    <a href="{{ path('noteProf_new') }}" class="btn btn-info">Donnez une note à un élève</a>
 
-
-        <a href="{{ path('noteProf_new') }}" class="btn btn-info">Donnez une note à un élève</a>
-
-        {% set somme = 0 %}
-        {% set count = 0 %}
-        {% for note in notes %}
-            {% if note.user.id == app.user.id %}
-                <div>Note du cours de {{  note.matter.name }}: {{ note.note }}</div>
-                <div>message: {{ note.message }}</div>
-                <div>Moyenne: {% set somme = somme + note.note %}</div>
-                {% set count = count + 1 %} <br><br>
-            {% endif %}
-            
-        {% endfor %}
-        {% if somme > 0 %}
-            <div>Moyenne general: {{somme / count}} / 20</div>
-        {% endif %}
-    {# {% edif %} #}
 {% endblock %}
