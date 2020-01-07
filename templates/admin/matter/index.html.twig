@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Matter index</h1>
 
-    <a href="{{ path('matter_new') }}" class="btn new">Create new</a>
+    <a href="{{ path('admin_new') }}" class="btn new">Create new</a>
 
         {% set count = 0 %}
         {% for matter in matters %}
@@ -16,17 +16,18 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th class="center">Matières</th>
+            <tr class="center">
+                <th>Matières</th>
 			    <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for matter in matters %}
-            <tr>
-                <td class="center">{{ matter.name }}</td>
+            <tr class="center">
+                <td>{{ matter.name }}</td>
 				<td>
-					<a href="{{ path('admin_edit', {'id': matter.id}) }}">edit</a>
+					<a href="{{ path('admin_edit', {'id': matter.id}) }}">modifier</a> / 
+                    {{ include('admin/matter/_delete_form.html.twig') }}
 				</td>
             </tr>
         {% else %}
@@ -36,33 +37,6 @@
         {% endfor %}
         </tbody>
 </table>
-
-<table class="table">
-	<thead>
-		<tr>
-			<th>Matière</th>
-			<th>Professeur assigné</th>
-			<th>actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for matter in matters %}
-			<tr>
-				<td>{{ matter.name }}</td>
-				<td>{{ matter.user.fullname }}</td>
-				<td>
-					<a href="{{ path('matter_show', {'id': matter.id}) }}">show</a>
-					<a href="{{ path('matter_edit', {'id': matter.id}) }}">edit</a>
-				</td>
-			</tr>
-		{% else %}
-			<tr>
-				<td colspan="3">Il n'y a pas de prof assigné</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table>
-
 
 
     <div class="flex">
