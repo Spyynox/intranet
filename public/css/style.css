@@ -45,4 +45,9 @@ body {
 .new {
     background-color: blue !important;
     color: white !important;
+    margin-top: 2%;
+}
+
+.bold {
+    font-weight: bold;
 }

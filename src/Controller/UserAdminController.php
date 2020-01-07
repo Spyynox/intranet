@@ -45,11 +45,13 @@ class UserAdminController extends AbstractController
     /**
      * @Route("/student", name="adminStudent_index", methods={"GET"})
      */
-    public function indexStudent(MatterRepository $matterRepository, UserRepository $userRepository, StudentUserRepository $studentUserRepository): Response
+    public function indexStudent(MatterRepository $matterRepository, UserRepository $userRepository, StudentUserRepository $studentUserRepository, NoteRepository $noteRepository): Response
     {
         return $this->render('admin/student/index.html.twig', [
             'matters' => $matterRepository->findAll(),
             'studentUsers' => $studentUserRepository->findAll(),
+            'notes' => $noteRepository->findAll(),
+            'users' => $userRepository->findAll(),
         ]);
     }
 
